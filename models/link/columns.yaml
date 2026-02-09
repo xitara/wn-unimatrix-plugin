@@ -1,0 +1,19 @@
+columns:
+    title:
+        label: xitara.unimatrix::lang.links.columns.title
+        searchable: true
+    link_type:
+        label: xitara.unimatrix::lang.links.columns.link_type
+        searchable: true
+        type: text
+    host:
+        label: xitara.unimatrix::lang.links.columns.host
+    port:
+        label: xitara.unimatrix::lang.links.columns.port
+        type: number
+    is_active:
+        label: xitara.unimatrix::lang.links.columns.is_active
+        type: switch
+    updated_at:
+        label: xitara.unimatrix::lang.links.columns.updated_at
+        type: datetime

@@ -1,0 +1,12 @@
+name: Link
+modelClass: Xitara\Unimatrix\Models\Link
+form: $/xitara/unimatrix/models/link/fields.yaml
+defaultRedirect: xitara/unimatrix/links
+create:
+    redirect: xitara/unimatrix/links/update/:id
+    redirectClose: xitara/unimatrix/links
+update:
+    redirect: xitara/unimatrix/links
+    redirectClose: xitara/unimatrix/links
+preview:
+    title: Preview Link

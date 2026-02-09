@@ -3,7 +3,6 @@
 namespace Xitara\Unimatrix;
 
 use Backend\Facades\Backend;
-use Backend\Models\UserRole;
 use System\Classes\PluginBase;
 
 /**
@@ -57,13 +56,10 @@ class Plugin extends PluginBase
      */
     public function registerPermissions(): array
     {
-        return []; // Remove this line to activate
-
         return [
-            'xitara.unimatrix.some_permission' => [
+            'xitara.unimatrix.access_links' => [
                 'tab' => 'xitara.unimatrix::lang.plugin.name',
-                'label' => 'xitara.unimatrix::lang.permissions.some_permission',
-                'roles' => [UserRole::CODE_DEVELOPER, UserRole::CODE_PUBLISHER],
+                'label' => 'xitara.unimatrix::lang.permissions.access_links',
             ],
         ];
     }
@@ -73,14 +69,12 @@ class Plugin extends PluginBase
      */
     public function registerNavigation(): array
     {
-        return []; // Remove this line to activate
-
         return [
             'unimatrix' => [
-                'label'       => 'xitara.unimatrix::lang.plugin.name',
-                'url'         => Backend::url('xitara/unimatrix/mycontroller'),
-                'icon'        => 'icon-leaf',
-                'permissions' => ['xitara.unimatrix.*'],
+                'label'       => 'xitara.unimatrix::lang.navigation.links',
+                'url'         => Backend::url('xitara/unimatrix/links'),
+                'icon'        => 'icon-link',
+                'permissions' => ['xitara.unimatrix.access_links'],
                 'order'       => 500,
             ],
         ];
