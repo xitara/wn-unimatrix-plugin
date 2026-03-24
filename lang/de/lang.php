@@ -16,9 +16,6 @@ return [
     'permissions' => [
         'access_links' => 'Links verwalten',
     ],
-    // 'navigation' => [
-        // 'links' => 'Links',
-    // ],
     'links' => [
         'columns' => [
             'title' => 'Titel',
@@ -38,10 +35,11 @@ return [
             'proxy_config' => 'Proxy-Konfiguration',
             'docker_stack' => 'Docker-Stack',
             'is_active' => 'Aktiv',
-            'sort_order' => 'Sortierung',
+            'icon' => 'Icon',
         ],
         'types' => [
             'webspace' => 'Webspace',
+            'host' => 'Host',
             'docker' => 'Docker',
             'external' => 'Extern',
         ],

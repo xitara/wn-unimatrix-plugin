@@ -19,6 +19,13 @@ fields:
         type: switch
         default: true
         span: right
+    icon:
+        label: xitara.unimatrix::lang.links.fields.icon
+        type: mediafinder
+        mode: image
+        imageWidth: 100
+        imageHeight: 100
+        span: left
 
 tabs:
     stretch: true
@@ -32,11 +39,6 @@ tabs:
             label: xitara.unimatrix::lang.links.fields.port
             type: number
             span: right
-        sort_order:
-            tab: xitara.unimatrix::lang.tabs.additional
-            label: xitara.unimatrix::lang.links.fields.sort_order
-            type: number
-            span: left
         description:
             tab: xitara.unimatrix::lang.tabs.details
             label: xitara.unimatrix::lang.links.fields.description
