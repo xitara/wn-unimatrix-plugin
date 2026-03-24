@@ -1,0 +1,11 @@
+{
+    "require-dev": {
+        "phpdocumentor/shim": "^3.6",
+        "friendsofphp/php-cs-fixer": "^3.93"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpdocumentor/shim": true
+        }
+    }
+}

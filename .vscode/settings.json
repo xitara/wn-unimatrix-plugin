@@ -1,0 +1,10 @@
+{
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+        "vue"
+    ],
+    "php-cs-fixer.toolPath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+    "php-cs-fixer.config": "${workspaceFolder}/.php-cs-fixer.php",
+    "php-cs-fixer.onsave": true
+}

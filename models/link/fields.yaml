@@ -1,55 +1,57 @@
+fields:
+    title:
+        label: xitara.unimatrix::lang.links.fields.title
+        span: left
+        required: true
+    url:
+        label: xitara.unimatrix::lang.links.fields.url
+        span: right
+        type: text
+        required: true
+    link_type:
+        label: xitara.unimatrix::lang.links.fields.link_type
+        type: dropdown
+        options: xitara.unimatrix::lang.links.types
+        span: left
+        required: true
+    is_active:
+        label: xitara.unimatrix::lang.links.fields.is_active
+        type: switch
+        default: true
+        span: right
+
 tabs:
     stretch: true
     fields:
-        title:
-            label: xitara.unimatrix::lang.links.fields.title
-            span: left
-            required: true
-        url:
-            label: xitara.unimatrix::lang.links.fields.url
-            span: right
-            type: text
-            required: true
-        link_type:
-            label: xitara.unimatrix::lang.links.fields.link_type
-            type: dropdown
-            options:
-                webspace: xitara.unimatrix::lang.links.types.webspace
-                docker: xitara.unimatrix::lang.links.types.docker
-                external: xitara.unimatrix::lang.links.types.external
-            span: left
-            required: true
-        is_active:
-            label: xitara.unimatrix::lang.links.fields.is_active
-            type: switch
-            default: true
-            span: right
         host:
+            tab: xitara.unimatrix::lang.tabs.additional
             label: xitara.unimatrix::lang.links.fields.host
             span: left
         port:
+            tab: xitara.unimatrix::lang.tabs.additional
             label: xitara.unimatrix::lang.links.fields.port
             type: number
             span: right
         sort_order:
+            tab: xitara.unimatrix::lang.tabs.additional
             label: xitara.unimatrix::lang.links.fields.sort_order
             type: number
             span: left
-secondaryTabs:
-    stretch: true
-    fields:
         description:
+            tab: xitara.unimatrix::lang.tabs.details
             label: xitara.unimatrix::lang.links.fields.description
             type: textarea
             size: large
             span: full
         proxy_config:
+            tab: xitara.unimatrix::lang.tabs.details
             label: xitara.unimatrix::lang.links.fields.proxy_config
             type: codeeditor
             language: nginx
             size: huge
             span: full
         docker_stack:
+            tab: xitara.unimatrix::lang.tabs.details
             label: xitara.unimatrix::lang.links.fields.docker_stack
             type: codeeditor
             language: yaml

@@ -5,12 +5,20 @@ return [
         'name' => 'Unimatrix',
         'description' => 'Kein Beschreibungstext vorhanden.',
     ],
+    'submenu' => [
+        'label' => 'Unimatrix',
+        'links' => 'Links',
+    ],
+    'tabs' => [
+        'details' => 'Details',
+        'additional' => 'Zusätzliches',
+    ],
     'permissions' => [
         'access_links' => 'Links verwalten',
     ],
-    'navigation' => [
-        'links' => 'Links',
-    ],
+    // 'navigation' => [
+        // 'links' => 'Links',
+    // ],
     'links' => [
         'columns' => [
             'title' => 'Titel',
