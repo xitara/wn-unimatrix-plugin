@@ -1,0 +1,51 @@
+{% if __SELF__.sections %}
+	<div class="unimatrix-link-page-buttons">
+		{% for section in __SELF__.sections %}
+			<section class="ulpb-section">
+				{% if section.title %}
+					<h3 class="ulpb-section-title">{{ section.title }}</h3>
+				{% endif %}
+
+				{% if section.description %}
+					<p class="ulpb-section-description">{{ section.description }}</p>
+				{% endif %}
+
+				<div class="ulpb-grid">
+					{% for item in section.items %}
+						{% set fallbackIcon = item.title|default('')|trim|slice(0, 1)|upper %}
+						{% if item.is_active %}
+							<a class="ulpb-button" href="{{ item.url }}" title="{{ item.title }}" target="_blank" data-noicon>
+								{% if item.icon_url %}
+									<span class="ulpb-icon">
+										<img src="{{ item.icon_url }}" alt="{{ item.title }}">
+									</span>
+								{% elseif fallbackIcon %}
+									<span class="ulpb-icon ulpb-icon--fallback" aria-hidden="true">
+										{{ fallbackIcon }}
+									</span>
+								{% endif %}
+
+								<span class="ulpb-title">{{ item.title }}</span>
+							</a>
+						{% else %}
+							<span class="ulpb-button is-inactive" title="{{ item.title }}">
+								{% if item.icon_url %}
+									<span class="ulpb-icon">
+										<img src="{{ item.icon_url }}" alt="{{ item.title }}">
+									</span>
+								{% elseif fallbackIcon %}
+									<span class="ulpb-icon ulpb-icon--fallback" aria-hidden="true">
+										{{ fallbackIcon }}
+									</span>
+								{% endif %}
+
+								<span class="ulpb-title">{{ item.title }}</span>
+								<span class="ulpb-meta">{{ 'xitara.unimatrix::lang.components.link_page_buttons.inactive'|trans }}</span>
+							</span>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</section>
+		{% endfor %}
+	</div>
+{% endif %}

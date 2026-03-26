@@ -1,0 +1,13 @@
+columns:
+    title:
+        label: xitara.unimatrix::lang.link_pages.columns.title
+        searchable: true
+    slug:
+        label: xitara.unimatrix::lang.link_pages.columns.slug
+        searchable: true
+    is_active:
+        label: xitara.unimatrix::lang.link_pages.columns.is_active
+        type: switch
+    updated_at:
+        label: xitara.unimatrix::lang.link_pages.columns.updated_at
+        type: datetime

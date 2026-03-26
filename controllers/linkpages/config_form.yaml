@@ -1,0 +1,12 @@
+name: LinkPage
+modelClass: Xitara\Unimatrix\Models\LinkPage
+form: $/xitara/unimatrix/models/linkpage/fields.yaml
+defaultRedirect: xitara/unimatrix/linkpages
+create:
+    redirect: xitara/unimatrix/linkpages/update/:id
+    redirectClose: xitara/unimatrix/linkpages
+update:
+    redirect: xitara/unimatrix/linkpages
+    redirectClose: xitara/unimatrix/linkpages
+preview:
+    title: Preview LinkPage

@@ -1,0 +1,31 @@
+fields:
+    title:
+        label: xitara.unimatrix::lang.link_pages.fields.title
+        type: text
+        span: left
+        required: true
+    slug:
+        label: xitara.unimatrix::lang.link_pages.fields.slug
+        type: text
+        preset:
+            field: tiitle
+            type: slug
+        span: right
+    description:
+        label: xitara.unimatrix::lang.link_pages.fields.description
+        type: textarea
+        span: left
+    is_active:
+        label: xitara.unimatrix::lang.link_pages.fields.is_active
+        type: switch
+        default: true
+        span: right
+
+tabs:
+    stretch: true
+    fields:
+        structure:
+            tab: xitara.unimatrix::lang.link_pages.fields.structure
+            label: xitara.unimatrix::lang.link_pages.fields.structure
+            type: linkstructurebuilder
+            span: full

@@ -3,3 +3,6 @@
 "1.1.0":
     - "Create links table"
     - create_links_table.php
+"1.2.0":
+    - "Create link pages table"
+    - create_link_pages_table.php
