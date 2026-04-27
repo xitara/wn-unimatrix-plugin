@@ -12,12 +12,14 @@ export const config = {
      * @type {Object}
      */
     entrypoints: {
+        linkpagebuttons: {
+            entry: `./scss/linkpagebuttons.scss`,
+            outputDir: `components/linkpagebuttons/assets`,
+        },
         // app: `./js/app.js`,
         app_ts: `./ts/app.ts`,
-        print: `./scss/print.scss`,
-        breakpoints: `./scss/breakpoints.scss`,
-        print: `./scss/print.scss`,
-        breakpoints: `./scss/breakpoints.scss`,
+        // print: `./scss/print.scss`,
+        // breakpoints: `./scss/breakpoints.scss`,
     },
 
     /**

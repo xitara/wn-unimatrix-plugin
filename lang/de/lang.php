@@ -20,6 +20,17 @@ return [
                     'title' => 'Link-Seite',
                     'description' => 'Wählt den Eintrag aus den Link-Seiten aus.',
                 ],
+                'start_section' => [
+                    'title' => 'Start',
+                    'description' => 'Erste Section, die ausgegeben wird.',
+                    'from_start' => 'von Anfang',
+                ],
+                'end_section' => [
+                    'title' => 'Ende',
+                    'description' => 'Letzte Section, die ausgegeben wird.',
+                    'to_end' => 'bis zum Ende',
+                ],
+                'section_fallback' => 'Section :number',
             ],
         ],
     ],

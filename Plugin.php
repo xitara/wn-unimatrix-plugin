@@ -2,7 +2,11 @@
 
 namespace Xitara\Unimatrix;
 
+use App;
 use Backend;
+use BackendMenu;
+use Event;
+use ReflectionObject;
 use System\Classes\PluginBase;
 use System\Classes\PluginManager;
 use Xitara\Nexus\Plugin as Xitara;
@@ -15,7 +19,7 @@ class Plugin extends PluginBase
     /**
      * Returns information about this plugin.
      */
-    public function pluginDetails(): array
+    public function pluginDetails() : array
     {
         return [
             'name' => 'xitara.unimatrix::lang.plugin.name',
@@ -28,10 +32,10 @@ class Plugin extends PluginBase
     /**
      * Register method, called when the plugin is first registered.
      */
-    public function register(): void
+    public function register() : void
     {
         if (PluginManager::instance()->exists('Xitara\Nexus') === true) {
-            \BackendMenu::registerContextSidenavPartial(
+            BackendMenu::registerContextSidenavPartial(
                 'Xitara.Unimatrix',
                 'unimatrix',
                 '$/xitara/nexus/partials/_sidebar.htm'
@@ -42,12 +46,12 @@ class Plugin extends PluginBase
     /**
      * Boot method, called right before the request route.
      */
-    public function boot(): void
+    public function boot() : void
     {
         /*
          * Check if we are currently in backend module.
          */
-        if (!\App::runningInBackend()) {
+        if (!App::runningInBackend()) {
             return;
         }
 
@@ -55,8 +59,8 @@ class Plugin extends PluginBase
          * get sidemenu if nexus-plugin is loaded
          */
         if (PluginManager::instance()->exists('Xitara.Nexus') === true) {
-            \Event::listen('backend.page.beforeDisplay', function ($controller, $action, $params) {
-                $namespace = (new \ReflectionObject($controller))->getNamespaceName();
+            Event::listen('backend.page.beforeDisplay', function ($controller, $action, $params) {
+                $namespace = (new ReflectionObject($controller))->getNamespaceName();
 
                 if ($namespace == 'Xitara\Unimatrix\Controllers') {
                     Xitara::getSideMenu('Xitara.Unimatrix', 'unimatrix');
@@ -68,21 +72,21 @@ class Plugin extends PluginBase
     /**
      * Registers any frontend components implemented in this plugin.
      */
-    public function registerComponents(): array
+    public function registerComponents() : array
     {
         return [
             Components\LinkPageButtons::class => 'linkPageButtons',
         ];
     }
 
-    public function registerPageSnippets(): array
+    public function registerPageSnippets() : array
     {
         return [
             Components\LinkPageButtons::class => 'linkPageButtons',
         ];
     }
 
-    public function registerFormWidgets(): array
+    public function registerFormWidgets() : array
     {
         return [
             FormWidgets\LinkStructureBuilder::class => 'linkstructurebuilder',
@@ -92,7 +96,7 @@ class Plugin extends PluginBase
     /**
      * Registers any backend permissions used by this plugin.
      */
-    public function registerPermissions(): array
+    public function registerPermissions() : array
     {
         return [
             'xitara.unimatrix.access_links' => [
@@ -120,7 +124,7 @@ class Plugin extends PluginBase
         return [
             'unimatrix' => [
                 'label' => $label,
-                'url' => \Backend::url('xitara/unimatrix/links'),
+                'url' => Backend::url('xitara/unimatrix/links'),
                 'icon' => 'icon-leaf',
                 'permissions' => ['xitara.unimatrix.*'],
                 'order' => 500,
@@ -160,7 +164,7 @@ class Plugin extends PluginBase
         return [
             'unimatrix.links' => [
                 'label' => 'xitara.unimatrix::lang.submenu.links',
-                'url' => \Backend::url('xitara/unimatrix/links'),
+                'url' => Backend::url('xitara/unimatrix/links'),
                 'icon' => 'icon-link',
                 'permissions' => ['xitara.unimatrix.*'],
                 'attributes' => [
@@ -170,7 +174,7 @@ class Plugin extends PluginBase
             ],
             'unimatrix.link_pages' => [
                 'label' => 'xitara.unimatrix::lang.submenu.link_pages',
-                'url' => \Backend::url('xitara/unimatrix/linkpages'),
+                'url' => Backend::url('xitara/unimatrix/linkpages'),
                 'icon' => 'icon-sitemap',
                 'permissions' => ['xitara.unimatrix.*'],
                 'attributes' => [

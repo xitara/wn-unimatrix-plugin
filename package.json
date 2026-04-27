@@ -125,6 +125,7 @@
         "bootstrap": "^5.3.8",
         "glightbox": "^3.3.1",
         "global": "^4.4.0",
+        "highlight.js": "^11.11.1",
         "mark.js": "^8.11.1",
         "micromodal": "^0.6.1",
         "npm-check-updates": "^19.2.0",

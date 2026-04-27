@@ -129,7 +129,7 @@ Object.entries(config.entrypoints).forEach(([name, entrypoint]) => {
     /**
      * Add Version to custom args
      */
-    let actVersion = '0.0.1-dev';
+    let actVersion = '';
 
     // console.log(config.sourceDir);
     // console.log(entrypoint.entry);

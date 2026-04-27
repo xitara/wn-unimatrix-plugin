@@ -1,0 +1,116 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 100rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin: 0;
+    }
+}
+
+.ulpb-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ulpb-section-description {
+    margin: -0.5rem 0 0;
+    color: #6b7280;
+}
+
+.ulpb-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.ulpb-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0 0.75rem;
+    min-height: 4.5rem;
+    border: 0.0625rem solid #b7c7d8;
+    border-radius: 0.375rem;
+    background: #f4f8fb;
+    color: inherit;
+    text-align: left;
+    text-decoration: none;
+    overflow: hidden;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    &:hover,
+    &:focus {
+        background: #eaf2f8;
+        border-color: #8aa8c2;
+        color: inherit;
+        text-decoration: none;
+        transform: translateY(-0.0625rem);
+    }
+
+    &.is-inactive {
+        opacity: 0.65;
+        cursor: default;
+    }
+}
+
+.ulpb-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 100%;
+    padding: 0 0.5rem;
+    overflow: hidden;
+    background: #fff;
+    border: 0.0625rem solid #b7c7d8;
+
+    img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    &--fallback {
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+}
+
+.ulpb-title {
+    grid-area: title;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ulpb-meta {
+    grid-area: meta;
+    margin-top: 0.25rem;
+    font-size: 0.6875rem;
+    color: #7b8a97;
+}
+
+@media (max-width: 40rem) {
+    .ulpb-grid {
+        grid-template-columns: 1fr;
+    }
+}

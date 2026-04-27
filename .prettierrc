@@ -1,5 +1,10 @@
 {
+    "useTabs": false,
+    "tabWidth": 4,
+    "endOfLine": "lf",
     "trailingComma": "es5",
     "singleQuote": true,
-    "printWidth": 100
+    "printWidth": 100,
+    "trailingCommaPHP": true,
+    "braceStyle": "per-cs"
 }

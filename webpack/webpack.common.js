@@ -16,18 +16,8 @@ export const commonConfig = (config, process) => {
     /**
      * Get version from ShoplyticsDataLayerBoilerplateConfig.ts
      */
-    // const versionFile = fs.readFileSync(
-    // path.resolve('./src/ts/dataLayer-builder/ShoplyticsDataLayerBoilerplateConfig.ts'),
-    // 'utf8'
-    // );
-    // const match = /version\s*:\s*['"]([^'"]+)['"]/.exec(versionFile);
-    // const VERSION = match ? match[1] : 'dev';
-    const VERSION = process.custom.VERSION || 'dev';
+    const VERSION = process.custom.VERSION || '';
     const ENTRYPOINT = process.custom.ENTRYPOINT || 'none';
-
-    // console.log(`Building Shoplytics DataLayer Boilerplate v${VERSION}`);
-    // console.log('ENTRYPOINT', ENTRYPOINT);
-    // console.log('ENTRYPOINT', { [ENTRYPOINT]: config.entrypoints[ENTRYPOINT] });
 
     /**
      * Define app directory
@@ -44,13 +34,22 @@ export const commonConfig = (config, process) => {
         : config.library != ''
           ? config.library
           : undefined;
+
     let entrypoint;
+    let outputDir;
 
     if (typeof config.entrypoints[ENTRYPOINT] === 'object') {
         entrypoint = config.entrypoints[ENTRYPOINT].entry;
+        outputDir = config.entrypoints[ENTRYPOINT].outputDir;
     } else {
         entrypoint = config.entrypoints[ENTRYPOINT];
+        outputDir = config.outputDir;
     }
+
+    const entryFiles = Array.isArray(entrypoint) ? entrypoint : [entrypoint];
+    const isStyleOnlyEntrypoint = entryFiles.every(
+        (file) => typeof file === 'string' && /\.(sa|sc|c)ss$/i.test(file)
+    );
 
     /**
      * Define common configuration
@@ -59,9 +58,9 @@ export const commonConfig = (config, process) => {
         context: resolveApp(config.sourceDir),
         entry: { [ENTRYPOINT]: entrypoint },
         output: {
-            filename: `js/[name]-${VERSION}${mode == 'development' ? '.debug' : ''}.js`,
+            filename: `js/[name]${VERSION == '' ? '' : '-' + VERSION}${mode == 'development' ? '.debug' : ''}.js`,
             devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
-            path: resolveApp(config.outputDir),
+            path: resolveApp(outputDir),
             // Example:
             // export const init = () => {}
             // Call: [lib].init();
@@ -172,6 +171,27 @@ export const commonConfig = (config, process) => {
                 filename: 'css/[name].css',
                 chunkFilename: 'css/[name].[id].css',
             }),
+            {
+                apply: (compiler) => {
+                    compiler.hooks.emit.tap('RemoveEmptyJsAssetsPlugin', (compilation) => {
+                        Object.keys(compilation.assets).forEach((assetName) => {
+                            if (!assetName.endsWith('.js')) {
+                                return;
+                            }
+
+                            const asset = compilation.assets[assetName];
+                            const isEntrypointAsset = assetName.startsWith(`js/${ENTRYPOINT}-`);
+
+                            if (
+                                (isStyleOnlyEntrypoint && isEntrypointAsset) ||
+                                asset.size() === 0
+                            ) {
+                                delete compilation.assets[assetName];
+                            }
+                        });
+                    });
+                },
+            },
             new CopyWebpackPlugin({
                 patterns: [
                     {

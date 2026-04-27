@@ -3,6 +3,7 @@
 namespace Xitara\Unimatrix\Components;
 
 use Cms\Classes\ComponentBase;
+use Request;
 use Xitara\Unimatrix\Models\Link;
 use Xitara\Unimatrix\Models\LinkPage;
 
@@ -35,6 +36,20 @@ class LinkPageButtons extends ComponentBase
                 'type' => 'dropdown',
                 'default' => '',
             ],
+            'startSection' => [
+                'title' => 'xitara.unimatrix::lang.components.link_page_buttons.properties.start_section.title',
+                'description' => 'xitara.unimatrix::lang.components.link_page_buttons.properties.start_section.description',
+                'type' => 'dropdown',
+                'default' => '',
+                'depends' => ['linkPage'],
+            ],
+            'endSection' => [
+                'title' => 'xitara.unimatrix::lang.components.link_page_buttons.properties.end_section.title',
+                'description' => 'xitara.unimatrix::lang.components.link_page_buttons.properties.end_section.description',
+                'type' => 'dropdown',
+                'default' => '',
+                'depends' => ['linkPage'],
+            ],
         ];
     }
 
@@ -53,6 +68,16 @@ class LinkPageButtons extends ComponentBase
                 return [(string) $linkPage->id => $label];
             })
             ->toArray();
+    }
+
+    public function getStartSectionOptions() : array
+    {
+        return $this->getSectionOptions('xitara.unimatrix::lang.components.link_page_buttons.properties.start_section.from_start');
+    }
+
+    public function getEndSectionOptions() : array
+    {
+        return $this->getSectionOptions('xitara.unimatrix::lang.components.link_page_buttons.properties.end_section.to_end');
     }
 
     public function onRun() : void
@@ -80,7 +105,14 @@ class LinkPageButtons extends ComponentBase
             return;
         }
 
-        $sectionItems = collect((array) data_get($this->linkPage->structure, 'sections', []))
+        $sections = collect((array) data_get($this->linkPage->structure, 'sections', []));
+        [$startIndex, $endIndex] = $this->resolveSectionRange($sections->count());
+
+        $sections = $sections->filter(function ($section, int $index) use ($startIndex, $endIndex) {
+            return $index >= $startIndex && $index <= $endIndex;
+        });
+
+        $sectionItems = $sections
             ->flatMap(function ($section) {
                 return (array) data_get($section, 'items', []);
             })
@@ -102,7 +134,7 @@ class LinkPageButtons extends ComponentBase
                 return [$link->id => $data];
             });
 
-        $this->sections = collect((array) data_get($this->linkPage->structure, 'sections', []))
+        $this->sections = $sections
             ->map(function ($section) use ($links) {
                 $items = collect((array) data_get($section, 'items', []))
                     ->map(function ($item) use ($links) {
@@ -125,6 +157,65 @@ class LinkPageButtons extends ComponentBase
             })
             ->values()
             ->all();
+    }
+
+    protected function getSectionOptions(string $emptyOptionLabel) : array
+    {
+        $options = [
+            '' => $emptyOptionLabel,
+        ];
+
+        $linkPageId = $this->getSelectedLinkPageId();
+
+        if ($linkPageId <= 0) {
+            return $options;
+        }
+
+        $linkPage = LinkPage::query()->find($linkPageId);
+
+        if (!$linkPage) {
+            return $options;
+        }
+
+        foreach ((array) data_get($linkPage->structure, 'sections', []) as $index => $section) {
+            $title = trim((string) data_get($section, 'title'));
+
+            if ($title === '') {
+                $title = trans('xitara.unimatrix::lang.components.link_page_buttons.properties.section_fallback', [
+                    'number' => $index + 1,
+                ]);
+            }
+
+            $options[(string) $index] = $title;
+        }
+
+        return $options;
+    }
+
+    protected function getSelectedLinkPageId() : int
+    {
+        $linkPageId = (int) $this->property('linkPage');
+
+        if ($linkPageId > 0) {
+            return $linkPageId;
+        }
+
+        return (int) Request::input('linkPage');
+    }
+
+    protected function resolveSectionRange(int $sectionCount) : array
+    {
+        if ($sectionCount <= 0) {
+            return [0, -1];
+        }
+
+        $startSection = $this->property('startSection');
+        $endSection = $this->property('endSection');
+
+        $startIndex = is_numeric($startSection) ? (int) $startSection : 0;
+        $endIndex = is_numeric($endSection) ? (int) $endSection : $sectionCount - 1;
+
+        return [$startIndex, $endIndex];
     }
 
     protected function normalizeIconPath($icon) : ?string

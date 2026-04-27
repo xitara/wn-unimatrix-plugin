@@ -1,4 +1,6 @@
-<?php namespace Xitara\Unimatrix\Controllers;
+<?php
+
+namespace Xitara\Unimatrix\Controllers;
 
 use Backend\Classes\Controller;
 use Backend\Facades\BackendMenu;

@@ -20,6 +20,17 @@ return [
                     'title' => 'Link page',
                     'description' => 'Selects the entry from the link pages list.',
                 ],
+                'start_section' => [
+                    'title' => 'Start',
+                    'description' => 'First section to render.',
+                    'from_start' => 'from start',
+                ],
+                'end_section' => [
+                    'title' => 'End',
+                    'description' => 'Last section to render.',
+                    'to_end' => 'to end',
+                ],
+                'section_fallback' => 'Section :number',
             ],
         ],
     ],
