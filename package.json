@@ -19,6 +19,8 @@
         "build-all": "node ./scripts/build-all.js",
         "icon-list": "node ./scripts/webpack-wrapper.js --mode development --progress --dev-only && node ./scripts/icon-list.js",
         "docs": "node ./scripts/phpdoc.js && node ./scripts/start-browser.js ./.docs/api/index.html",
+        "deploy": "node ./scripts/deploy.js",
+        "ftp": "node ./scripts/ftp.js",
         "analyze": "webpack-bundle-analyzer ./stats.json",
         "lint-js": "eslint 'src/js/**/*.js' --fix",
         "lint-ts": "eslint 'src/ts/**/*.ts' --fix",
